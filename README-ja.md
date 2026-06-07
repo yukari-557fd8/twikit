@@ -26,7 +26,7 @@
 
 ### APIキー不要
 
-このライブラリは、ツイッターの非公式APIを使用しているため、APIキーは必要ありません。
+このライブラリは、cookieの`auth_token`と`ct0`を利用します。
 
 ### 無料
 
@@ -76,11 +76,27 @@ async def main():
     await client.login(
         auth_info_1=USERNAME ,
         auth_info_2=EMAIL,
-        password=PASSWORD
+        password=PASSWORD,
+        cookies_file=cookies_file
     )
 
 asyncio.run(main())
 ```
+
+**cookie.jsonをロードして、アカウントを利用する。
+```python
+import asyncio
+import os
+from twikit import Client
+
+client = Client(language="ja-JP")
+
+async def main():
+    cookies_file = 'cookie.json'
+    if os.path.exists(cookies_file):
+        client.load_cookies(cookies_file)
+```
+
 
 **メディア付きツイートを作成する。**
 
